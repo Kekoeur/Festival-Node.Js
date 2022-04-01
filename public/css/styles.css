@@ -378,7 +378,7 @@ button{
 
 #login, #signup{
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 50px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -395,9 +395,17 @@ button{
     font-size: 1.2rem;
     margin: 20px;
 }
-
+#login-form > form{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+#login-form > form *{
+    margin: 5px;
+}
 #login-form > *{
     margin: 5px;
+    width: 100%;
 }
 #login-form h1{
     font-size: 2rem;
@@ -407,7 +415,6 @@ button{
 #login-form input{
     padding: 10px;
     border-radius: 10px;
-    width: 100%;
 }
 #login-form #submit-btn{
     width: 100%;

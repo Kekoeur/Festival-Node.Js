@@ -9,19 +9,24 @@
 </head>
 
 <body>
+    <nav class="navigation">
+        <div class="nav-logo">Your Logo</div>
+    </nav>
     <div id="login">
-        <form id="login-form" method="POST" action="Login">
-            <h1>Connexion</h1>
-            <label for="email">Votre email :</label>
-            <input type="email" name="email" id="email" placeholder="Saisissez votre email">
-            <label for="pwd">Mot de passe :</label>
-            <input type="password" name="pwd" id="pwd" placeholder="Saisissez votre mot de passe">
-            <button type="submit" id="submit-btn">Se connecter</button>
-            <a href="pages/signup.html">
+        <div id="login-form">
+            <form method="POST" action="Login">
+                <h1>Connexion</h1>
+                <label for="email">Votre email :</label>
+                <input type="email" name="email" id="email" placeholder="Saisissez votre email">
+                <label for="pwd">Mot de passe :</label>
+                <input type="password" name="pwd" id="pwd" placeholder="Saisissez votre mot de passe">
+                <button type="submit" id="submit-btn">Se connecter</button>
+            </form>
+            <a href="signup.html">
                 <span>Pas de compte ?</span>
                 <div>Cliquez <button>ici</button> pour vous enregistrer</div>
             </a>
-        </form>
+        </div>
     </div>
 </body>
 
