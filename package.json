@@ -1,0 +1,19 @@
+{
+  "name": "festochnode",
+  "version": "1.0.0",
+  "description": "Création d'un chat avec Socket.io",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.17.0",
+    "socket.io": "^3.1.2",
+    "sqlite3": "^5.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
