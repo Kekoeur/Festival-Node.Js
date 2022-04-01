@@ -340,7 +340,7 @@ main{
     color: white;
 }
 
-form{
+#sendMessage{
     display: flex;
     flex-direction: column;
     height: 15%;
@@ -374,32 +374,59 @@ button{
     right: 0;
 }
 
-#login {
-    text-decoration: none;
-    padding: 5px;
-    margin: 10px;
-    background: var(--main-color);
-    color: white;
-    border-radius: 8px;
-    border: 1px solid white;
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
 /* LOGIN */ 
 
-#login #signup{
+#login, #signup{
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#login > form{
+#login-form{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid black ;
-    background-color: var(--main-color-transparent);
+    border: 1px solid black;
+    padding: 25px;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    margin: 20px;
+}
+
+#login-form > *{
+    margin: 5px;
+}
+#login-form h1{
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+#login-form input{
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+}
+#login-form #submit-btn{
+    width: 100%;
+    border-radius: 25px;
+}
+#login-form a{
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+#login-form a span{
+    color: gray;
+    margin: 10px;
+}
+#login-form a button{
+    padding: 5px;
+    border-radius: 5px;
+}
+#login-form a div{
+    margin: 10px;
+    font-size: 1rem;
 }

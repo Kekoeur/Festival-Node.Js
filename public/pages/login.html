@@ -10,10 +10,17 @@
 
 <body>
     <div id="login">
-        <form method="POST" action="Login">
-            <input type="text" name="user" id="user">
-            <input type="password" name="pwd" id="pwd">
-            <button type="submit">Se connecter</button>
+        <form id="login-form" method="POST" action="Login">
+            <h1>Connexion</h1>
+            <label for="email">Votre email :</label>
+            <input type="email" name="email" id="email" placeholder="Saisissez votre email">
+            <label for="pwd">Mot de passe :</label>
+            <input type="password" name="pwd" id="pwd" placeholder="Saisissez votre mot de passe">
+            <button type="submit" id="submit-btn">Se connecter</button>
+            <a href="pages/signup.html">
+                <span>Pas de compte ?</span>
+                <div>Cliquez <button>ici</button> pour vous enregistrer</div>
+            </a>
         </form>
     </div>
 </body>
