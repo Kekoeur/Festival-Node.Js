@@ -274,12 +274,18 @@ span.icon-bar{
     .text{
         font-size: 5vw;
     }
+    #contact {
+        width: 100vw;
+    }
 }
 @media screen and (min-width:768px){
 	#nav-overlay.active{
 		visibility:hidden;
 		opacity:0;
-	}
+    }
+    #contact {
+        width: 25vw;
+    }
 }
 
 aside{
@@ -362,7 +368,6 @@ button{
 }
 
 #contact {
-    width: 25vw;
     height: calc(100vh - 50px);
     position: fixed;
     bottom: 0;
