@@ -144,4 +144,3 @@ function publishMessages(msg) {
 
     document.querySelector("#messages").innerHTML += texte;
 }
-

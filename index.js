@@ -48,6 +48,7 @@ dbUsers.sync();
 
 // On crée la route /
 app.get("/", (req, res) => {
+    console.log(req.session)
     res.sendFile(__dirname + "/index.html");
 });
 
