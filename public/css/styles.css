@@ -379,12 +379,13 @@ button{
 #login, #signup{
     width: 100vw;
     height: calc(100vh - 50px);
+}
+#login{
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-#login-form{
+.login-signup{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -395,45 +396,45 @@ button{
     font-size: 1.2rem;
     margin: 20px;
 }
-#login-form > form{
+.login-signup > form{
     display: flex;
     flex-direction: column;
     text-align: center;
 }
-#login-form > form *{
+.login-signup > form *{
     margin: 5px;
 }
-#login-form > *{
+.login-signup > *{
     margin: 5px;
     width: 100%;
 }
-#login-form h1{
+.login-signup h1{
     font-size: 2rem;
     text-transform: uppercase;
     margin-bottom: 30px;
 }
-#login-form input{
+.login-signup input{
     padding: 10px;
     border-radius: 10px;
 }
-#login-form #submit-btn{
+.login-signup #submit-btn{
     width: 100%;
     border-radius: 25px;
 }
-#login-form a{
+.login-signup a{
     text-align: center;
     text-decoration: none;
     color: black;
 }
-#login-form a span{
+.login-signup a span{
     color: gray;
     margin: 10px;
 }
-#login-form a button{
+.login-signup a button{
     padding: 5px;
     border-radius: 5px;
 }
-#login-form a div{
+.login-signup a div{
     margin: 10px;
     font-size: 1rem;
 }

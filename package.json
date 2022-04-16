@@ -4,11 +4,40 @@
   "description": "Création d'un chat avec Socket.io",
   "main": "index.js",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv-flow": "^3.2.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.3",
+    "express-fileupload": "^1.3.1",
+    "express-session": "^1.17.2",
+    "jabber": "^1.4.0",
+    "moment": "^2.24.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
+    "node": "^16.13.1",
     "nodemon": "^2.0.15",
+    "random-picture": "^4.0.6",
     "sequelize": "^6.17.0",
-    "socket.io": "^3.1.2",
-    "sqlite3": "^5.0.0"
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1",
+    "sqlite3": "^5.0.0",
+    "ucfirst": "^1.0.0",
+    "uuid": "^8.3.2",
+    "winston": "^3.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.12",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^27.4.0",
+    "babel-jest": "^27.4.6",
+    "jest": "^27.4.7",
+    "nodemon": "^2.0.12"
+  },
+  "engines": {
+    "node": "16.13.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
