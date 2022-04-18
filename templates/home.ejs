@@ -1,18 +1,21 @@
 <%- include('./header'); %>
 
-<body>
-    <nav class="navigation">
-        <div class="nav-logo">Your Logo</div>
-        <div id="auth">
-            <p id="value_user" data-firstname="<%= firstname %>" data-lastname="<%= lastname %>"
-                data-email="<%= email %>" data-dispo="<%= dispo %>"><%= firstname %> <%= lastname %></p>
-            <% if(firstname == "") { %>
-            <a id="login" href="/login">Connexion</a>
-            <% } else { %>
-            <a id="logout" href="/logout">Déconnexion</a>
-            <% } %>
-        </div>
-        <!--<ul id="nav-menu">
+    <body>
+        <nav class="navigation">
+            <div class="nav-logo">Your Logo</div>
+            <div id="auth">
+                <p id="value_user" data-firstname="<%= firstname %>" data-lastname="<%= lastname %>"
+                    data-email="<%= email %>" data-dispo="<%= dispo %>">
+                    <%= firstname %>
+                        <%= lastname %>
+                </p>
+                <% if(firstname=="" ) { %>
+                    <a id="login_btn" href="/login">Connexion</a>
+                    <% } else { %>
+                        <a id="logout_btn" href="/logout">Déconnexion</a>
+                        <% } %>
+            </div>
+            <!--<ul id="nav-menu">
             <li><a href="">Link 1</a></li>
             <li><a href="">Link 2</a></li>
             <li><a href="">Link 3</a></li>
@@ -24,55 +27,58 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </div>-->
-    </nav>
-    <div id="nav-overlay"></div>
-    <div id="main-img">
-        <div id="countdown">
-            <div id="jours" class="countdown-elm">
-                <p id="value_jours" class="countdown-value"></p>
-                <p class="text">Jours</p>
-            </div>
-            <div id="heures" class="countdown-elm">
-                <p id="value_heures" class="countdown-value"></p>
-                <p class="text">Heures</p>
-            </div>
-            <div id="minutes" class="countdown-elm">
-                <p id="value_minutes" class="countdown-value"></p>
-                <p class="text">Minutes</p>
-            </div>
-            <div id="secondes" class="countdown-elm">
-                <p id="value_secondes" class="countdown-value"></p>
-                <p class="text">Secondes</p>
-            </div>
-        </div>
-    </div>
-    <div id="btn-chat">
-        <button id="display_chat"><img src="./img/chat.svg" alt="chat"></button>
-    </div>
-    <div id="contact">
-        <div id="content">
-            <div id="info">
-                <div id="user">
-                    <div data-dispo="<%= dispo %>"></div><%= firstname %> <%= lastname %>
+        </nav>
+        <div id="nav-overlay"></div>
+        <div id="main-img">
+            <div id="countdown">
+                <div id="jours" class="countdown-elm">
+                    <p id="value_jours" class="countdown-value"></p>
+                    <p class="text">Jours</p>
                 </div>
-                <div id="close_chat"><i class="fa fa-times-circle-o" aria-hidden="true"></i></div>
+                <div id="heures" class="countdown-elm">
+                    <p id="value_heures" class="countdown-value"></p>
+                    <p class="text">Heures</p>
+                </div>
+                <div id="minutes" class="countdown-elm">
+                    <p id="value_minutes" class="countdown-value"></p>
+                    <p class="text">Minutes</p>
+                </div>
+                <div id="secondes" class="countdown-elm">
+                    <p id="value_secondes" class="countdown-value"></p>
+                    <p class="text">Secondes</p>
+                </div>
             </div>
-            <div id="messages"></div>
-            <div id="writing"></div>
         </div>
-        <form id="sendMessage">
-            <% if(firstname != "") { %>
-            <input type="text" id="name" placeholder="Entrez votre nom" value="<%= firstname %> <%= lastname %>">
-            <input type="text" id="message" placeholder="Entrez votre message">
-            <button>Envoyer</button>
-            <% } else { %>
-            <a id="not_co" href="/login">Connectez/inscrivez vous pour pouvoir écrire dans le chat</a>
-            <% } %>
+        <div id="btn-chat">
+            <button id="display_chat"><img src="./img/chat.svg" alt="chat"></button>
+        </div>
+        <div id="contact">
+            <div id="content">
+                <div id="info">
+                    <div id="user">
+                        <div data-dispo="<%= dispo %>"></div>
+                        <%= firstname %>
+                            <%= lastname %>
+                    </div>
+                    <div id="close_chat"><i class="fa fa-times-circle-o" aria-hidden="true"></i></div>
+                </div>
+                <div id="messages"></div>
+                <div id="writing"></div>
+            </div>
+            <form id="sendMessage">
+                <% if(firstname !="" ) { %>
+                    <input type="text" id="name" placeholder="Entrez votre nom"
+                        value="<%= firstname %> <%= lastname %>">
+                    <input type="text" id="message" placeholder="Entrez votre message">
+                    <button>Envoyer</button>
+                    <% } else { %>
+                        <a id="not_co" href="/login">Connectez/inscrivez vous pour pouvoir écrire dans le chat</a>
+                        <% } %>
 
-        </form>
-    </div>
-    <!-- On va chercher socket.io.js -->
+            </form>
+        </div>
+        <!-- On va chercher socket.io.js -->
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/scripts.js"></script>
-    <%- include('./footer'); %>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/scripts.js"></script>
+        <%- include('./footer'); %>
