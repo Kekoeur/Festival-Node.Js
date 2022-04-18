@@ -1,0 +1,87 @@
+<%- include('./header'); %>
+
+
+<section id="register">
+    <form action="/<%= title %>" method="post">
+        <div class="container py-5 my-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><%= title_name %></h2>
+                        </div>
+                        <div class="card-body">
+                            <div id="part-one">
+                                <div class="mb-3">
+                                    <label for="lastname" class="form-label">Nom :</label>
+                                    <input type="text" name="lastname" class="form-control" id="lastname"
+                                        placeholder="Saisissez votre nom">
+                                    <p class="error_form" id="empty_lastname">Ce champ ne peut pas être vide</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="firstname" class="form-label">Prénom :</label>
+                                    <input type="text" name="firstname" class="form-control" id="firstname"
+                                        placeholder="Saisissez  votre prénom">
+                                    <p class="error_form" id="empty_firstname">Ce champ ne peut pas être vide</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email :</label>
+                                    <input type="email" name="email" class="form-control" id="email"
+                                        placeholder="Saisissez votre email">
+                                    <p class="error_form" id="empty_email">Ce champ ne peut pas être vide</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Mot de passe :</label>
+                                    <input type="password" name="password" class="form-control" id="password"
+                                        placeholder="Enter password">
+                                    <p class="error_form" id="empty_password">Ce champ ne peut pas être vide</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="confirm_password" class="form-label">Confirmation du mot de passe
+                                        :</label>
+                                    <input type="password" name="confirm_password" class="form-control"
+                                        id="confirm_password" placeholder="Confirm password">
+                                    <p class="error_form" id="empty_confirm_password">Ce champ ne peut pas être vide</p>
+                                </div>
+                                <div id="error_password" class="mb-3 error_form">
+                                    <p>Les mots de pass doivent être identiques</p>
+                                </div>
+                                <div id="next" class="w-100 btn">Suivant</div>
+                            </div>
+                            <div id="part-two">
+                                <div class="mb-3">
+                                    <label for="dispo" class="form-label">Etes vous disponible le week-end du 02/03
+                                        Juillet
+                                        ?</label>
+                                    <select name="dispo" class="form-control" id="dispo">
+                                        <option value="yes" selected>OUI !!!!</option>
+                                        <option value="no">Non</option>
+                                        <option value="maybe">Peut-être</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Prix vous êtes prêt a mettre pour la soirée
+                                        :</label>
+                                    <p>Pour savoir quel est notre budget</p>
+                                    <input type="number" id="price" class="form-control" name="price" min="10" max="50"
+                                        value="20">
+                                </div>
+                            </div>
+                            <% if (error) { %>
+                            <p> <%= error %></p>
+                            <% } %>
+                        </div>
+                        <button type="submit" id="submit-btn">S'inscrire</button>
+                        <div class="card-footer text-center">
+                            <a href="/login">
+                                <span>Vous avez un compte ?</span>
+                                <div>Cliquez <div class="btn">ici</div> pour vous connecter</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+</section>
+<script src="js/register.js"></script>
+<%- include('./footer'); %>

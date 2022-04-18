@@ -1,0 +1,45 @@
+<%- include('./header'); %>
+
+<section id="login">
+    <form action="/<%= title %>" method="post">
+        <div class="container py-5 my-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><%= title_name %></h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email :</label>
+                                <% if (email) { %>
+                                <input type="email" name="email" class="form-control" id="email"
+                                    placeholder="Saisissez votre email" value="<%= email %>">
+                                <% } else { %>
+                                <input type="email" name="email" class="form-control" id="email"
+                                    placeholder="Saisissez votre email">
+                                <% } %>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Mot de passe :</label>
+                                <input type="password" name="password" class="form-control" id="password"
+                                    placeholder="Enter password">
+                            </div>
+                            <% if (error) { %>
+                            <p> <%= error %></p>
+                            <% } %>
+                        </div>
+                        <button type="submit" id="submit-btn">Se connecter</button>
+                        <div class="card-footer text-center">
+                            <a href="/register">
+                                <span>Pas de compte ?</span>
+                                <div>Cliquez <div class="btn">ici</div> pour vous enregistrer</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+</section>
+<script src="js/login.js"></script>
+<%- include('./footer'); %>
