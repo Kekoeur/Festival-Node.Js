@@ -69,6 +69,10 @@ body {
     justify-content: center;
     align-items: center;
 }
+.btn {
+    background: var(--main-color);
+    color: white;
+}
 #countdown{
     display: flex;
     flex-direction: row;
@@ -137,7 +141,6 @@ ul#nav-menu li a:hover{
 }
 #nav-toggle{
 	display:none;
-
 	position:absolute;
 	top:0;
 	right:0;
@@ -321,12 +324,33 @@ main{
     height: 85%;
     position: relative;
 }
-
-#messages{
+#not_co{
     height: 100%;
     background-color: #393c43;
+    text-decoration: none;
+    color: white;
 }
-
+#messages{
+    height: calc(100% - 2.5rem);
+    background-color: #393c43;
+}
+#info{
+    height: 2.5rem;
+    background-color: #131416;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: white;
+}
+#info #close_chat{
+    width: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#close_chat i{
+    font-size: 2rem;
+}
 #writing{
     position: absolute;
     bottom: 0;
@@ -363,7 +387,7 @@ button{
     flex: 1;
     padding: 10px;
     border: none;
-    background-color: #839c49;
+    background-color:  var(--main-color);
     color: white;
 }
 
@@ -374,9 +398,10 @@ button{
     right: 0;
 }
 
+
 /* LOGIN */ 
 
-#login, #signup{
+/*#login, #signup{
     width: 100vw;
     height: calc(100vh - 50px);
 }
@@ -384,7 +409,7 @@ button{
     display: flex;
     justify-content: center;
     align-items: center;
-}
+}*/
 .login-signup{
     display: flex;
     flex-direction: column;
@@ -437,4 +462,62 @@ button{
 .login-signup a div{
     margin: 10px;
     font-size: 1rem;
+}
+section#register #submit-btn{
+    display: none;
+}
+section#register #part-two{
+    display: none;
+}
+.error_form{
+    display: none;
+    color: red;
+}
+#sendMessage #name{
+    display: none;
+}
+#contact{
+    display: none;
+}
+#btn-chat{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+#display_chat{
+    border-radius: 50px;
+    padding: 1rem;
+}
+#login, #logout{
+    background: blue;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+#auth {
+    display: flex;
+}
+#value_user{
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    text-decoration: none;
 }

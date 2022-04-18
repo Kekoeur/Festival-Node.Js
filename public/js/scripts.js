@@ -9,90 +9,8 @@ socket.on("connect", () => {
 
 
 window.onload = () => {
-    // On écoute l'évènement submit
-    document.getElementById('sendMessage').addEventListener("submit", (e) => {
-        // On empêche l'envoi du formulaire
-        e.preventDefault();
-        const name = document.querySelector("#name")
-        const message = document.querySelector("#message");
-        // On récupère le nom de la salle
-        const createdAt = new Date();
-
-        // On envoie le message
-        socket.emit("chat_message", {
-            name: name.value,
-            message: message.value,
-            room: 'general',
-            createdAt: createdAt
-        });
-
-        // On efface le message
-        document.getElementById("message").value = "";
-    });
-
-    // On écoute l'évènement "received_message"
-    socket.on("received_message", (msg) => {
-        console.log(msg)
-        publishMessages(msg);
-    })
-
-    // On écoute le clic sur les onglets
-    /*   document.querySelectorAll("#tabs li").forEach((tab) => {
-           tab.addEventListener("click", function () {
-               // On vérifie si l'onglet n'est pas actif
-               if (!this.classList.contains("active")) {
-                   // On récupère l'élément actuellement actif
-                   const actif = document.querySelector("#tabs li.active");
-                   actif.classList.remove("active");
-                   this.classList.add("active");
-                   document.querySelector("#messages").innerHTML = "";
-                   // On quitte l'ancienne salle
-                   socket.emit("leave_room", actif.dataset.room);
-                   // On entre dans la nouvelle salle
-                   socket.emit("enter_room", this.dataset.room);
-               }
-           })
-       });
-   */
-    // On écoute l'évènement "init_messages"
-    socket.on("init_messages", msg => {
-        console.log(msg)
-        let data = JSON.parse(msg.messages);
-        if (data != []) {
-            data.forEach(donnees => {
-                publishMessages(donnees);
-            })
-        }
-    });
-
-    // On écoute la frappe au clavier
-    document.querySelector("#message").addEventListener("input", () => {
-        // On récupère le nom
-        const name = document.querySelector("#name").value;
-        // On récupère le salon
-
-        socket.emit("typing", {
-            name: name,
-            room: 'general'
-        });
-    });
-
-    // On écoute les messages indiquant que quelqu'un tape au clavier
-    socket.on("usertyping", msg => {
-        const writing = document.querySelector("#writing");
-
-        writing.innerHTML = `${msg.name} tape un message...`;
-
-        setTimeout(function () {
-            writing.innerHTML = "";
-        }, 5000);
-    });
-
-    document.getElementById("main-img").style.backgroundImage = "url('img/boom_festival_2016_pierre_ekman_343_2.1300x614.jpg')";
-    console.log(document.getElementById("main-img").style.backgroundImage)
-
     // Set the date we're counting down to
-    var countDownDate = new Date("Jul 9, 2022 20:00:00").getTime();
+    var countDownDate = new Date("Jul 2, 2022 19:00:00").getTime();
     // Update the count down every 1 second
     var x = setInterval(function () {
 
@@ -122,8 +40,70 @@ window.onload = () => {
             document.getElementById("countdown").innerHTML = "EXPIRED";
         }
     }, 1000);
+    // On écoute l'évènement submit
+    let user = document.querySelector('#value_user');
+    user_firstname = user.getAttribute('data-firstname');
+    console.log(user_firstname !== "")
+    if (user_firstname) {
+        document.getElementById('sendMessage').addEventListener("submit", (e) => {
+            // On empêche l'envoi du formulaire
+            e.preventDefault();
+            const name = document.querySelector("#name")
+            const message = document.querySelector("#message");
+            // On récupère le nom de la salle
+            const createdAt = new Date();
 
-    document.getElementById('nav-toggle').addEventListener('click', function (e) {
+            // On envoie le message
+            socket.emit("chat_message", {
+                name: name.value,
+                message: message.value,
+                room: 'general',
+                createdAt: createdAt
+            });
+
+            // On efface le message
+            document.getElementById("message").value = "";
+        });
+
+        socket.on("received_message", (msg) => {
+            console.log(msg)
+            publishMessages(msg);
+        })
+        socket.on("init_messages", msg => {
+            console.log(msg)
+            let data = JSON.parse(msg.messages);
+            if (data != []) {
+                data.forEach(donnees => {
+                    publishMessages(donnees);
+                })
+            }
+        });
+        document.querySelector("#message").addEventListener("input", () => {
+            // On récupère le nom
+            const name = document.querySelector("#name").value;
+            // On récupère le salon
+
+            socket.emit("typing", {
+                name: name,
+                room: 'general'
+            });
+        });
+        socket.on("usertyping", msg => {
+            const writing = document.querySelector("#writing");
+
+            writing.innerHTML = `${msg.name} tape un message...`;
+
+            setTimeout(function () {
+                writing.innerHTML = "";
+            }, 5000);
+        });
+    }
+    document.getElementById("main-img").style.backgroundImage = "url('img/boom_festival_2016_pierre_ekman_343_2.1300x614.jpg')";
+    console.log(document.getElementById("main-img").style.backgroundImage)
+
+
+
+    /*document.getElementById('nav-toggle').addEventListener('click', function (e) {
         e.preventDefault();
         document.getElementById('nav-toggle').classList.toggle("active");
         document.getElementById('nav-menu').classList.toggle("active");
@@ -134,13 +114,30 @@ window.onload = () => {
         document.getElementById('nav-toggle').classList.toggle("active");
         document.getElementById('nav-menu').classList.toggle("active");
         document.getElementById('nav-overlay').classList.toggle("active");
-    })
+    })*/
 };
-
 
 function publishMessages(msg) {
     let created = new Date(msg.createdAt);
     let texte = `<div><p>${msg.name} <small>${created.toLocaleDateString()}</small></p><p>${msg.message}</p></div>`
 
     document.querySelector("#messages").innerHTML += texte;
+}
+
+document.getElementById('display_chat').addEventListener('click', display_chat);
+document.getElementById('close_chat').addEventListener('click', display_chat);
+function display_chat() {
+    let chat = document.getElementById('contact');
+    console.log(chat);
+    console.log(chat.style.display)
+    let btn_display = document.getElementById('btn-chat');
+    console.log(btn_display);
+    console.log(btn_display.style.display)
+    if (chat.style.display != 'block') {
+        chat.style.display = "block";
+        btn_display.style.display = 'none'
+    } else {
+        chat.style.display = "none";
+        btn_display.style.display = 'flex'
+    }
 }

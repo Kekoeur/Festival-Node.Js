@@ -1,6 +1,7 @@
 // On instancie express
 const express = require("express");
 const app = express();
+const session = require('express-session');
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 
@@ -12,7 +13,21 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
+const oneDay = 1000 * 60 * 60 * 24;
+const middlewareSession = session({
+    secret: 'secretforpostbackfestoche',
+    saveUninitialized: true,
+    cookie: { maxAge: oneDay },
+    resave: false,
+});
+app.use(middlewareSession);
+app.use((req, res, next) => {
+    if (req.session != undefined && req.session.user != null)
+        res.locals.me = req.session.user;
+    next();
+});
+app.set('views', __dirname + '/templates');
+app.set('view engine', 'ejs');
 // On crée le serveur http
 const http = require("http").createServer(app);
 
@@ -46,10 +61,25 @@ const dbUsers = require("./Models/dbUsers")(sequelize, Sequelize.DataTypes);
 // On effectue le chargement "réèl"
 dbUsers.sync();
 
+var sess;
 // On crée la route /
-app.get("/", (req, res) => {
-    console.log(req.session)
-    res.sendFile(__dirname + "/index.html");
+app.get("/", async (req, res) => {
+    sess = req.session;
+    console.log('req session', req.session);
+    if (sess.user) {
+        res.render('home', {
+            firstname: sess.user.firstname,
+            lastname: sess.user.lastname,
+            email: sess.user.email,
+            dispo: sess.user.dispo
+        })
+    } else
+        res.render('home', {
+            firstname: '',
+            lastname: '',
+            email: '',
+            dispo: ''
+        })
 });
 
 // On écoute l'évènement "connection" de socket.io
@@ -107,45 +137,97 @@ io.on("connection", (socket) => {
         socket.to(msg.room).emit("usertyping", msg);
     })
 });
-app.post('/pages/signup', async function (request, response) {
-    const user = await dbUsers.findOne({ where: { lastname: request.body.lastname, firstname: request.body.firstname } })
-    console.log(request.body)
+app.get('/register', async (req, res) => {
+    res.render('register', {
+        'register': true,
+        'title': 'register',
+        'title_name': 'register2',
+        'error': ''
+    })
+});
+app.post('/register', async function (request, response) {
+    var user = await dbUsers.findOne({ where: { lastname: request.body.lastname, firstname: request.body.firstname } });
+    console.log('user', user)
     if (null !== user) {
-        session = request.session;
-        session.user = user;
-        connectedUserList.set(request.session.ID, user);
-        response.redirect('login')
+        let body = {
+            'login': true,
+            'title': 'login',
+            'title_name': 'login'
+        }
+        if (user.email == request.body.email) {
+            body.error = 'Utilisateur déja incrit, veuillez vous connecter'
+            body.email = request.body.email
+        } else {
+            body.error = 'Utilisateur déja incrit avec une autre adresse mail, veuillez vous connecter'
+            body.email = user.email
+        }
+        response.render('login', body)
     } else if ('' !== request.body.username) {
         dbUsers.create({
             lastname: request.body.lastname,
             firstname: request.body.firstname,
             email: request.body.email,
             password: request.body.password,
-        }).then(function (dbusers) {
-            if (dbusers) {
-                response.send(dbusers);
+            price: request.body.price,
+            dispo: request.body.dispo
+        }).then(function (user) {
+            if (user) {
+                sess = request.session;
+                sess.user = user;
+                response.redirect('/');
             } else {
                 response.status(400).send('Error in insert new record');
             }
         })
-        response.redirect('/');
     } else {
-        response.redirect('/pages/signup.html');
+        response.redirect('/register');
     }
 });
-app.post('/pages/login', function (req, res) {
+app.get('/login', async (req, res) => {
+    res.render('login', {
+        'login': true,
+        'title': 'login',
+        'title_name': 'login',
+        'error': '',
+        'email': ''
+    })
+});
+app.post('/login', async function (req, res) {
+    let ok = await authenticateUserWithemail({ email: req.body.email, password: req.body.password });
+    const user = await dbUsers.findOne({ where: { email: req.body.email } });
+    if (ok) {
+        sess = req.session;
+        sess.user = user;
+        res.redirect('/');
+    } else {
+        obj = {
+            'login': true,
+            'title': 'login',
+            'title_name': 'login',
+        };
+        if (user) {
+            obj.error = 'Mot de passe incorrect',
+                obj.email = req.body.email
+        } else {
+            obj.error = 'Utilisateur inconnue',
+                obj.email = ''
+        }
+        res.render('login', obj)
+    }
+});
+const authenticateUserWithemail = (user) => {
     return new Promise((resolve, reject) => {
         try {
-            usermodel.findOne({
+            dbUsers.findOne({
                 where: {
-                    email: req.email // user email
+                    email: user.email // user email
                 }
             }).then(async (response) => {
                 if (!response) {
                     resolve(false);
                 } else {
                     if (!response.dataValues.password ||
-                        !await response.validPassword(req.password,
+                        !await response.validPassword(user.password,
                             response.dataValues.password)) {
                         resolve(false);
                     } else {
@@ -164,7 +246,7 @@ app.post('/pages/login', function (req, res) {
             reject(response);
         }
     })
-});
+};
 app.get('/logout', async (req, res) => {
     req.session.destroy()
     res.clearCookie('connect.sid') // clean up!
