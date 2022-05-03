@@ -42,8 +42,8 @@ window.onload = () => {
     }, 1000);
     // On écoute l'évènement submit
     let user = document.querySelector('#value_user');
-    user_firstname = user.getAttribute('data-firstname');
-    console.log(user_firstname !== "")
+    if(user) {
+        user_firstname = user.getAttribute('data-firstname');
     if (user_firstname) {
         document.getElementById('sendMessage').addEventListener("submit", (e) => {
             // On empêche l'envoi du formulaire
@@ -98,12 +98,10 @@ window.onload = () => {
             }, 5000);
         });
     }
-    document.getElementById("main-img").style.backgroundImage = "url('img/boom_festival_2016_pierre_ekman_343_2.1300x614.jpg')";
-    console.log(document.getElementById("main-img").style.backgroundImage)
+}
+    //document.getElementById("main-img").style.backgroundImage = "url('img/boom_festival_2016_pierre_ekman_343_2.1300x614.jpg')";
 
-
-
-    /*document.getElementById('nav-toggle').addEventListener('click', function (e) {
+    document.getElementById('nav-toggle').addEventListener('click', function (e) {
         e.preventDefault();
         document.getElementById('nav-toggle').classList.toggle("active");
         document.getElementById('nav-menu').classList.toggle("active");
@@ -114,7 +112,11 @@ window.onload = () => {
         document.getElementById('nav-toggle').classList.toggle("active");
         document.getElementById('nav-menu').classList.toggle("active");
         document.getElementById('nav-overlay').classList.toggle("active");
-    })*/
+    })
+    document.getElementById('user').addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('user-opt').classList.toggle("active");
+    })
 };
 
 function publishMessages(msg) {

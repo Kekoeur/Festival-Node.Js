@@ -2,52 +2,107 @@
 
     <body>
         <nav class="navigation">
-            <div class="nav-logo">Your Logo</div>
-            <div id="auth">
-                <p id="value_user" data-firstname="<%= firstname %>" data-lastname="<%= lastname %>"
-                    data-email="<%= email %>" data-dispo="<%= dispo %>">
-                    <%= firstname %>
-                        <%= lastname %>
-                </p>
-                <% if(firstname=="" ) { %>
-                    <a id="login_btn" href="/login">Connexion</a>
+            <div class="nav-logo"><img src="./img/logo.svg" alt="logo"></div>
+            <ul id="nav-menu">
+                <li><a href="#main-img">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#us">Us</a></li>
+            </ul>
+            <div id="left-nav">
+                <div id="auth">
+                    <% if(firstname=="" ) { %>
+                        <a id="login_btn" href="/login"><img src="./img/user.svg" alt="user"> Connexion</a>
                     <% } else { %>
-                        <a id="logout_btn" href="/logout">Déconnexion</a>
-                        <% } %>
+                        <div id="user">
+                            <img src="./img/user.svg" alt="user">
+                            <p id="value_user" data-firstname="<%= firstname %>" data-lastname="<%= lastname %>"
+                                data-email="<%= email %>" data-dispo="<%= dispo %>">
+                                <%= firstname %>
+                                    <%= lastname %>
+                            </p>
+                        </div>
+                        <div id="user-opt">
+                            <a id="user_btn" href="/user"><img>Mon Compte</a>
+                            <a id="logout_btn" href="/logout"><img src="./img/logout.svg" alt="logout"> Déconnexion</a>
+                        </div>
+                    <% } %>
+                </div>
+                <div id="nav-toggle">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </div>
             </div>
-            <!--<ul id="nav-menu">
-            <li><a href="">Link 1</a></li>
-            <li><a href="">Link 2</a></li>
-            <li><a href="">Link 3</a></li>
-            <li><a href="">Link 4</a></li>
-        </ul>
-        
-        <div id="nav-toggle">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </div>-->
         </nav>
         <div id="nav-overlay"></div>
-        <div id="main-img">
-            <div id="countdown">
-                <div id="jours" class="countdown-elm">
-                    <p id="value_jours" class="countdown-value"></p>
-                    <p class="text">Jours</p>
+        <div class="container-section">
+            <section>
+                <div id="main-img" class="content">
+                    <div id="intro-text">
+                        <p class="content-title">Are you ready ?</p>
+                    </div>
+                    <div id="countdown">
+                        <div id="jours" class="countdown-elm">
+                            <p id="value_jours" class="countdown-value"></p>
+                            <p class="text">Jours</p>
+                        </div>
+                        <div id="heures" class="countdown-elm">
+                            <p id="value_heures" class="countdown-value"></p>
+                            <p class="text">Heures</p>
+                        </div>
+                        <div id="minutes" class="countdown-elm">
+                            <p id="value_minutes" class="countdown-value"></p>
+                            <p class="text">Minutes</p>
+                        </div>
+                        <div id="secondes" class="countdown-elm">
+                            <p id="value_secondes" class="countdown-value"></p>
+                            <p class="text">Secondes</p>
+                        </div>
+                    </div>
                 </div>
-                <div id="heures" class="countdown-elm">
-                    <p id="value_heures" class="countdown-value"></p>
-                    <p class="text">Heures</p>
+            </section>
+            <section>
+                <div id="about" class="content">
+                    <p class="content-title">Titre de cette partie</p>
+                    <div id="desc" class="content-subtitle">
+                        <p>Avoir son bac c'est bien, le fêter c'est mieux ! Alors pourquoi ne pas remettre ça quelques années après ?</p>
+                        <p>Au programme, boire (important),manger (faut bien vomir) mais aussi des tournois, du son (beaucoup de son) et des copains !</p>
+                        <p> Réserve ton week-end du 01 au 03 juillet et viens taper du pied !</p>
+                        <p>L'adresse et la Billetterie arrivent très vite ! En attendant n'oubliez pas de vous inscrire</p>
+                    </div>
                 </div>
-                <div id="minutes" class="countdown-elm">
-                    <p id="value_minutes" class="countdown-value"></p>
-                    <p class="text">Minutes</p>
+            </section>
+            <section>
+                <div id="us" class="content">
+                    <p class="content-title">Nous</p>
+                    <div id="desc" class="content-subtitle">
+                        <div class="us">
+                            <img src="./img/us/Nono.jpg" alt="Nono">
+                            <img class="golri" src="./img/us/Nono.jpg" alt="Nono">
+                        </div>
+                        <div class="us">
+                            <img src="./img/us/Clacla.jpg" alt="Clacla">
+                            <img class="golri" src="./img/us/Clacla.jpg" alt="Clacla">
+                        </div>
+                        <div class="us">
+                            <img src="./img/us/Gogo.jpg" alt="Gogo">
+                            <img class="golri" src="./img/us/Gogo.jpg" alt="Gogo">
+                        </div>
+                        <div class="us">
+                            <img src="./img/us/Kekoeur.jpg" alt="Kekoeur">
+                            <img class="golri" src="./img/us/Kekoeur.jpg" alt="Kekoeur">
+                        </div>
+                        <div class="us">
+                            <img src="./img/us/Pierrot.jpg" alt="Pierrot">
+                            <img class="golri" src="./img/us/Pierrot.jpg" alt="Pierrot">
+                        </div>
+                        <div class="us">
+                            <img src="./img/us/Valoche.jpg" alt="Valoche">
+                            <img class="golri" src="./img/us/Valoche.jpg" alt="Valoche">
+                        </div>
+                    </div>
                 </div>
-                <div id="secondes" class="countdown-elm">
-                    <p id="value_secondes" class="countdown-value"></p>
-                    <p class="text">Secondes</p>
-                </div>
-            </div>
+            </section>
         </div>
         <div id="btn-chat">
             <button id="display_chat"><img src="./img/chat.svg" alt="chat"></button>

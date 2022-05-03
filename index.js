@@ -252,6 +252,24 @@ app.get('/logout', async (req, res) => {
     res.clearCookie('connect.sid') // clean up!
     res.redirect('/');
 });
+app.get("/user", async (req, res) => {
+    sess = req.session;
+    if (sess.user) {
+        res.render('home', {
+            firstname: sess.user.firstname,
+            lastname: sess.user.lastname,
+            email: sess.user.email,
+            dispo: sess.user.dispo
+        })
+    } else
+        res.render('home', {
+            firstname: '',
+            lastname: '',
+            email: '',
+            dispo: ''
+        })
+});
+
 // On va demander au serveur http de répondre sur le port 3000
 http.listen(3000, () => {
     console.log("J'écoute le port 3000");
