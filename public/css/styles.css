@@ -728,13 +728,40 @@ section#register #part-two {
     background-size: cover;
     background-attachment: fixed;
 }
-.golri{
-    display: none;
-}
 .us img{
+    display: none;
     height: 200px;
     width: 200px;
     border-radius: 100px;
+}
+.us img.active{
+    display: block;
+}
+#Nono{
+    grid-area: nono;
+}
+#Clacla{
+    grid-area: clacla;
+}
+#Gogo{
+    grid-area: gogo;
+}
+#Kekoeur{
+    grid-area: kekoeur;
+}
+#Pierrot{
+    grid-area: pierrot;
+}
+#Valoche{
+    grid-area: valoche;
+}
+#team{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+    "nono clacla gogo"
+    "kekoeur pierrot valoche";
 }
     @media screen and (max-width:767px) {
 

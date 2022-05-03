@@ -143,3 +143,18 @@ function display_chat() {
         btn_display.style.display = 'flex'
     }
 }
+
+let us = document.getElementsByClassName("us");
+for (let i = 0; i < us.length; i++) {
+    const element = us[i];
+    element.addEventListener('mouseover', switch_photo)
+    element.addEventListener('mouseout', switch_photo_back)
+}
+function switch_photo(){
+    this.getElementsByClassName("class")[0].classList.remove("active");
+    this.getElementsByClassName("golri")[0].classList.add("active");
+}
+function switch_photo_back(){
+    this.getElementsByClassName("class")[0].classList.add("active");
+    this.getElementsByClassName("golri")[0].classList.remove("active");
+}
