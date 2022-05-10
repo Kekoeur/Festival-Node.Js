@@ -1,9 +1,12 @@
 // On instancie express
 const express = require("express");
 const app = express();
+const https = require('https');
 const session = require('express-session');
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
+const fs = require('fs');
+const socketIo = require('socket.io')(server);
 
 // On charge "path"
 const path = require("path");
@@ -29,10 +32,25 @@ app.use((req, res, next) => {
 app.set('views', __dirname + '/templates');
 app.set('view engine', 'ejs');
 // On crée le serveur http
-const http = require("http").createServer(app);
+var options = {
+	key: fs.readFileSync('./privkey.pem'),
+	cert: fs.readFileSync('./cert.pem'),
+        ca: fs.readFileSync('./chain.pem'),
+
+        requestCert: false,
+        rejectUnauthorized: false
+}
+
+var server = https.createServer(options, app);
 
 // On instancie socket.io
-const io = require("socket.io")(http);
+const io = socketIo;
+
+// On va demander au serveur http de répondre sur le port 3000
+server.listen(3000, () => {
+    console.log("J'écoute le port 3000");
+});
+
 
 // On charge sequelize
 const Sequelize = require("sequelize");
@@ -268,9 +286,4 @@ app.get("/user", async (req, res) => {
             email: '',
             dispo: ''
         })
-});
-
-// On va demander au serveur http de répondre sur le port 3000
-http.listen(3000, () => {
-    console.log("J'écoute le port 3000");
 });
