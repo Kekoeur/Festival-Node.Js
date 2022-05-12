@@ -864,6 +864,17 @@ section#register #part-two {
     #user > *{
         padding: 0 10px;
     }
+    .us img {
+            height: 130px;
+            width: 130px;
+    }
+    #desc{
+        font-size: 1rem;
+    }
+    .content-title{
+        font-size: 3rem;
+    }
+
 }
 @media screen and (max-width:730px) {
     #team{
