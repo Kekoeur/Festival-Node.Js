@@ -391,7 +391,12 @@ span.icon-bar {
     }
 
     ul#nav-menu.active {
-        height: auto;
+        height: calc(100vh - 50px);;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--logo-blue);
     }
 
     ul#nav-menu li {
