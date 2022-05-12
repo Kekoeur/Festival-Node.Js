@@ -115,10 +115,10 @@ window.onload = () => {
         document.getElementById('nav-menu').classList.toggle("active");
         document.getElementById('nav-overlay').classList.toggle("active");
     })
-    document.getElementById('user').addEventListener('click', function (e) {
+    /*document.getElementById('user').addEventListener('click', function (e) {
         e.preventDefault();
         document.getElementById('user-opt').classList.toggle("active");
-    })
+    })*/
 };
 
 function publishMessages(msg) {
