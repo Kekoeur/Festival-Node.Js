@@ -1,5 +1,8 @@
 // On se connecte au serveur socket
-const socket = io('https://post-back.site', {transports: ['websocket']});
+const socket = io('ws://localhost:3000', {
+	maxHttpBufferSize: 1e8,
+	pingTimeout: 60000,
+	transports: ['websocket']});
 // On gère l'arrivée d'un nouvel utilisateur
 socket.on("connect", () => {
     // On émet un message d'entrée dans une salle
