@@ -1,8 +1,5 @@
 // On se connecte au serveur socket
-const socket = io('ws://localhost:3000', {
-	maxHttpBufferSize: 1e8,
-	pingTimeout: 60000,
-	transports: ['websocket']});
+const socket = io('ws://localhost:3000', {transports: ['websocket']});
 // On gère l'arrivée d'un nouvel utilisateur
 socket.on("connect", () => {
     // On émet un message d'entrée dans une salle
@@ -12,7 +9,7 @@ socket.on("connect", () => {
 
 window.onload = () => {
     // Set the date we're counting down to
-    var countDownDate = new Date("Jul 2, 2022 19:00:00").getTime();
+    var countDownDate = new Date("Jul 1, 2022 19:00:00").getTime();
     // Update the count down every 1 second
     var x = setInterval(function () {
 

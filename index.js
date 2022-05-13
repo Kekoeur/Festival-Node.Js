@@ -7,7 +7,6 @@ const session = require('express-session');
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 const fs = require('fs');
-
 // On charge "path"
 const path = require("path");
 
@@ -33,7 +32,7 @@ app.set('views', __dirname + '/templates');
 app.set('view engine', 'ejs');
 // On crée le serveur http
 var options = {
-	target: "http://localhost:3000",
+	target: "http://51.77.245.158:3000",
 	ws: true,
 	key: fs.readFileSync('./privkey.pem'),
 	cert: fs.readFileSync('./cert.pem'),
@@ -68,15 +67,17 @@ const Sequelize = require("sequelize");
 // On fabrique le lien de la base de données
 const dbPath = path.resolve(__dirname, "database.sqlite");
 
-
 // On se connecte à la base
 const sequelize = new Sequelize("database", "username", "password", {
-    host: "localhost",
+    host: "51.77.245.158",
     dialect: "sqlite",
     logging: false,
 
     // Sqlite seulement
-    storage: dbPath
+    storage: dbPath,
+	dialectOptions: {
+    mode: 2
+  }
 });
 
 // On charge le modèle "Chat"
@@ -199,6 +200,7 @@ app.post('/register', async function (request, response) {
             price: request.body.price,
             dispo: request.body.dispo
         }).then(function (user) {
+		console.log('user ajouter');
             if (user) {
                 sess = request.session;
                 sess.user = user;
@@ -298,6 +300,6 @@ app.get("/user", async (req, res) => {
         })
 });
 // On va demander au serveur http de répondre sur le port 3000
-http.listen(3000, () => {
+http.listen(3000,  () => {
     console.log("J'écoute le port 3000");
 });
