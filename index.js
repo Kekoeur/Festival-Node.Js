@@ -209,7 +209,7 @@ app.post('/login', async function (req, res) {
             obj.error = 'Mot de passe incorrect',
                 obj.email = req.body.email
         } else {
-            obj.error = 'Utilisateur inconnue',
+            obj.error = 'Utilisateur inconnu',
                 obj.email = ''
         }
         res.render('login', obj)

@@ -1,5 +1,6 @@
 :root {
     --logo-blanc: #eff8fc;
+    --logo-blanc-transparent: rgba(239, 248, 252, 0.75);
     --logo-rose: #dc84b6;
     --logo-yellow: #fde20a;
     --logo-darkblue: #4288c8;
@@ -193,7 +194,7 @@ body {
 }
 #intro-text{
     color: var(--main-color);
-    font-size: 7.5vw;
+    font-size: 10vw;
     font-weight: 800;
     text-transform: uppercase;
 }
@@ -208,7 +209,7 @@ body {
     justify-content: center;
     align-items: center;
     color: var(--main-color);
-    background-color: var(--main-color-transparent);
+    background-color: var(--logo-blanc-transparent);
     border-radius: 20px;
 }
 
@@ -225,12 +226,13 @@ body {
     color: var(--logo-blanc);
     border-radius: 20px;
     padding: 5px;
-    font-size: 10vw;
+    font-size: 15vw;
     margin: 0;
 }
 
 .text {
-    font-size: 3vw;
+    font-size: 4vw;
+    font-weight: 900;
 }
 
 .arrow {
@@ -718,16 +720,20 @@ section#register #part-two {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     padding: 50px;
 }
 #desc{
     text-align: center;
+    /*color: var(--logo-yellow);*/
+    text-transform: uppercase;
+    font-weight: 500;
+    /*background-color: rgba(66, 136, 200, 0.75);*/
     color: var(--logo-darkblue);
-    background-color: var(--logo-blanc);
+    background-color: var(--logo-blanc-transparent);
     border-radius: 20px;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     padding: 50px 25px;
 }
 #desc >  *{
@@ -737,7 +743,7 @@ section#register #part-two {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 .container-section section{
     position: relative;
@@ -892,6 +898,10 @@ section#register #part-two {
     }
     #desc{
         font-size: 1rem;
+        padding: 20px;
+    }
+    #desc > *{
+        padding: 10px;
     }
     .content-title{
         font-size: 3rem;
