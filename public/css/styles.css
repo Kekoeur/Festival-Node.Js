@@ -233,6 +233,23 @@ body {
     font-size: 3vw;
 }
 
+.arrow {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+.arrow > * > img {
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    margin: 10px;
+    background-color: var(--logo-blue);
+    border-radius: 25px;
+}
+.arrow .home img{
+    transform: rotate(180deg);
+}
 /* NAV */
 
 nav.navigation {
