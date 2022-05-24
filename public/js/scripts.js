@@ -1,5 +1,5 @@
 // On se connecte au serveur socket
-const socket = io('ws://localhost:3000', {transports: ['websocket']});
+const socket = io('post-back.site', {transports: ['websocket']});
 // On gère l'arrivée d'un nouvel utilisateur
 socket.on("connect", () => {
     // On émet un message d'entrée dans une salle

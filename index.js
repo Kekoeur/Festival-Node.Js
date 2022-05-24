@@ -1,4 +1,3 @@
-
 // On instancie express
 const express = require("express");
 const app = express();
@@ -51,6 +50,7 @@ httpProxy.createProxyServer({
 //app.listen(3000);
 //var server = https.createServer(options, app);
 const socketIo = require('socket.io')(http, {
+	rejectUnauthorized: false,
 	cors: {
 		origin: "//post-back.site",
 		methods: ["GET", "POST"]
@@ -65,31 +65,49 @@ const io = socketIo;
 const Sequelize = require("sequelize");
 
 // On fabrique le lien de la base de données
-const dbPath = path.resolve(__dirname, "database.sqlite");
+//const dbPath = path.resolve(__dirname, "database.sqlite");
+
+const mysql = require('mysql');
+
+initialize();
 
 // On se connecte à la base
-const sequelize = new Sequelize("database", "username", "password", {
-    host: "51.77.245.158",
-    dialect: "sqlite",
-    logging: false,
+async function initialize() {
+	const connection = await mysql.createConnection({
+		host:'51.77.245.158',
+		user:'Kekoeur', 
+		password:'Christo#26'
+	});
+//	await connection.query('CREATE DATABASE IF NOT EXISTS post-back;');*/
+
+	const sequelize = new Sequelize('post-back', 'Kekoeur', 'Christo#26', {
+		host:'51.77.245.158',
+		port:'3000',
+		dialect: 'mysql'});
+
+//const sequelize = new Sequelize("database", "username", "password", {
+//    host: "51.77.245.158",
+//    dialect: "sqlite",
+//    logging: false,
 
     // Sqlite seulement
-    storage: dbPath,
-	dialectOptions: {
-    mode: 2
-  }
-});
+//    storage: dbPath,
+//	dialectOptions: {
+//    mode: 2
+//  }
+//});
 
 // On charge le modèle "Chat"
-const Chat = require("./Models/Chat")(sequelize, Sequelize.DataTypes);
+	const Chat = require("./Models/Chat")(sequelize, Sequelize.DataTypes);
 // On effectue le chargement "réèl"
-Chat.sync();
+//Chat.sync();
 
 // On charge le modèle "dbUsers"
-const dbUsers = require("./Models/dbUsers")(sequelize, Sequelize.DataTypes);
+	const dbUsers = require("./Models/dbUsers")(sequelize, Sequelize.DataTypes);
 // On effectue le chargement "réèl"
-dbUsers.sync();
-
+//dbUsers.sync();
+	await sequelize.sync();
+}
 var sess;
 // On crée la route /
 app.get("/", async (req, res) => {
@@ -239,7 +257,7 @@ app.post('/login', async function (req, res) {
             obj.error = 'Mot de passe incorrect',
                 obj.email = req.body.email
         } else {
-            obj.error = 'Utilisateur inconnue',
+            obj.error = 'Utilisateur inconnu',
                 obj.email = ''
         }
         res.render('login', obj)
