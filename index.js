@@ -6,6 +6,8 @@ const session = require('express-session');
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 const fs = require('fs');
+const db = require('./config/db.config');
+const sequelize = require('sequelize');
 // On charge "path"
 const path = require("path");
 
@@ -61,53 +63,10 @@ const socketIo = require('socket.io')(http, {
 // On instancie socket.io
 const io = socketIo;
 
-// On charge sequelize
-const Sequelize = require("sequelize");
-
 // On fabrique le lien de la base de données
 //const dbPath = path.resolve(__dirname, "database.sqlite");
 
-const mysql = require('mysql');
 
-initialize();
-
-// On se connecte à la base
-async function initialize() {
-	const connection = await mysql.createConnection({
-		host:'51.77.245.158',
-		user:'Kekoeur', 
-		password:'Christo#26'
-	});
-//	await connection.query('CREATE DATABASE IF NOT EXISTS post-back;');*/
-
-	const sequelize = new Sequelize('post-back', 'Kekoeur', 'Christo#26', {
-		host:'51.77.245.158',
-		port:'3000',
-		dialect: 'mysql'});
-
-//const sequelize = new Sequelize("database", "username", "password", {
-//    host: "51.77.245.158",
-//    dialect: "sqlite",
-//    logging: false,
-
-    // Sqlite seulement
-//    storage: dbPath,
-//	dialectOptions: {
-//    mode: 2
-//  }
-//});
-
-// On charge le modèle "Chat"
-	const Chat = require("./Models/Chat")(sequelize, Sequelize.DataTypes);
-// On effectue le chargement "réèl"
-//Chat.sync();
-
-// On charge le modèle "dbUsers"
-	const dbUsers = require("./Models/dbUsers")(sequelize, Sequelize.DataTypes);
-// On effectue le chargement "réèl"
-//dbUsers.sync();
-	await sequelize.sync();
-}
 var sess;
 // On crée la route /
 app.get("/", async (req, res) => {
@@ -145,7 +104,7 @@ io.on("connection", (socket) => {
         console.log(socket.rooms);
 
         // On envoie tous les messages du salon
-        Chat.findAll({
+        db.Chat.findAll({
             attributes: ["id", "name", "message", "room", "createdAt"],
             where: {
                 room: room
@@ -166,7 +125,7 @@ io.on("connection", (socket) => {
     socket.on("chat_message", (msg) => {
         // On stocke le message dans la base
         console.log(msg)
-        const message = Chat.create({
+        const message = db.Chat.create({
             name: msg.name,
             message: msg.message,
             room: msg.room,
@@ -193,7 +152,7 @@ app.get('/register', async (req, res) => {
     })
 });
 app.post('/register', async function (request, response) {
-    var user = await dbUsers.findOne({ where: { lastname: request.body.lastname, firstname: request.body.firstname } });
+    var user = await db.User.findOne({ where: { lastname: request.body.lastname, firstname: request.body.firstname } });
     console.log('user', user)
     if (null !== user) {
         let body = {
@@ -210,7 +169,7 @@ app.post('/register', async function (request, response) {
         }
         response.render('login', body)
     } else if ('' !== request.body.username) {
-        dbUsers.create({
+        db.User.create({
             lastname: request.body.lastname,
             firstname: request.body.firstname,
             email: request.body.email,
@@ -242,7 +201,7 @@ app.get('/login', async (req, res) => {
 });
 app.post('/login', async function (req, res) {
     let ok = await authenticateUserWithemail({ email: req.body.email, password: req.body.password });
-    const user = await dbUsers.findOne({ where: { email: req.body.email } });
+    const user = await db.User.findOne({ where: { email: req.body.email } });
     if (ok) {
         sess = req.session;
         sess.user = user;
@@ -266,7 +225,7 @@ app.post('/login', async function (req, res) {
 const authenticateUserWithemail = (user) => {
     return new Promise((resolve, reject) => {
         try {
-            dbUsers.findOne({
+            db.User.findOne({
                 where: {
                     email: user.email // user email
                 }
